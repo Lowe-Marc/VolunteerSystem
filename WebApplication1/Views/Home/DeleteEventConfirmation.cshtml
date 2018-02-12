@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "DeleteEvent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Are you sure you wish to delete the event?</h2>
+
+<table style="width:25%">
+    @using (Html.BeginForm("DeleteEvent", "Home"))
+    {
+        <td> <input type="submit" value="Yes" /> </td>
+    }
+
+    @using (Html.BeginForm("Index", "Home"))
+    {
+        <td> <input type="submit" value="Cancel" /> </td>
+    }
+</table>

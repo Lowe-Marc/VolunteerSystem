@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "UserPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+
+}
+
+<h3> Username: @ViewData["UserName"]</h3>
+<h3> First Name: @ViewData["FirstName"]</h3>
+<h3> Last Name: @ViewData["LastName"]</h3>
+<h3> Email: @ViewData["Email"]</h3>
+<h3> Phone: @ViewData["Phone"]</h3>
+
+<div>Signed up to volunteer for the following Events:</div>
+<table style="width:100%">
+    <tr>
+        <th>Event Time</th>
+        <th>Event Name</th>
+    </tr>
+    @{ 
+        foreach (Tuple <DateTime, string> pair in (List<Tuple<DateTime, string>>)ViewData["ShiftTimeEventNameTuples"])
+        {
+            <tr>
+                <td>@pair.Item1</td>
+                <td>@pair.Item2</td>
+            </tr>
+        }
+    }
+</table>

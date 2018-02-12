@@ -1,0 +1,24 @@
+﻿<Properties StartupConfiguration="{7F63C9ED-A16A-41BF-A00A-EED6FDF92170}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebApplication1/Views/Home/UserPage.cshtml">
+    <Files>
+      <File FileName="WebApplication1/Controllers/HomeController.cs" Line="218" Column="38" />
+      <File FileName="WebApplication1/Controllers/UserController.cs" Line="23" Column="71" />
+      <File FileName="WebApplication1/Models/CreateUser.cs" Line="13" Column="6" />
+      <File FileName="WebApplication1/Views/Shared/_Layout.cshtml" Line="11" Column="1" />
+      <File FileName="WebApplication1/Views/Home/Index.cshtml" Line="57" Column="26" />
+      <File FileName="WebApplication1/Views/Home/Event.cshtml" Line="7" Column="56" />
+      <File FileName="WebApplication1/Views/Home/ManageUser.cshtml" Line="1" Column="1" />
+      <File FileName="WebApplication1/Models/Event.cs" Line="287" Column="18" />
+      <File FileName="WebApplication1/Models/User.cs" Line="211" Column="40" />
+      <File FileName="WebApplication1/Web.config" Line="71" Column="3" />
+      <File FileName="WebApplication1/Views/Home/UserPage.cshtml" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.WebApplication1 PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

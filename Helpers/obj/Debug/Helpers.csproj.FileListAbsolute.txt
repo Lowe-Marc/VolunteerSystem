@@ -1,0 +1,12 @@
+/Users/derekstoner/Projects/volunteer-system/Helpers/bin/Debug/Helpers.dll
+/Users/derekstoner/Projects/volunteer-system/Helpers/bin/Debug/Helpers.pdb
+/Users/derekstoner/Projects/volunteer-system/Helpers/obj/Debug/Helpers.csproj.CoreCompileInputs.cache
+/Users/derekstoner/Projects/volunteer-system/Helpers/obj/Debug/Helpers.dll
+/Users/derekstoner/Projects/volunteer-system/Helpers/obj/Debug/Helpers.pdb
+/Users/derekstoner/Projects/volunteer-system/Helpers/obj/Debug/Helpers.csprojResolveAssemblyReference.cache
+C:\Users\Marcus\Classes\Fall 2017\CS 741\Project\volunteer-system\Helpers\bin\Debug\Helpers.dll
+C:\Users\Marcus\Classes\Fall 2017\CS 741\Project\volunteer-system\Helpers\bin\Debug\Helpers.pdb
+C:\Users\Marcus\Classes\Fall 2017\CS 741\Project\volunteer-system\Helpers\obj\Debug\Helpers.csprojResolveAssemblyReference.cache
+C:\Users\Marcus\Classes\Fall 2017\CS 741\Project\volunteer-system\Helpers\obj\Debug\Helpers.csproj.CoreCompileInputs.cache
+C:\Users\Marcus\Classes\Fall 2017\CS 741\Project\volunteer-system\Helpers\obj\Debug\Helpers.dll
+C:\Users\Marcus\Classes\Fall 2017\CS 741\Project\volunteer-system\Helpers\obj\Debug\Helpers.pdb

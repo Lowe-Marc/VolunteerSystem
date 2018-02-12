@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Event";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int eventID = Int32.Parse((string)ViewData["id"]);
+    bool finalized = MVCFullCalendarDemo.Models.Event.eventIsFinalized(eventID);
+    MVCFullCalendarDemo.Models.Event.eventID = eventID;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    Start Time: @ViewData["StartTime"]
+</div>
+
+<div>
+    End Time: @ViewData["EndTime"]
+</div>
+
+<div>
+    Description: @ViewData["Description"]
+</div>
+
+<div>
+    Number of Volunteers: @ViewData["NumVolunteers"]
+</div>
+
+<div>
+    Location: @ViewData["Location"]
+</div>
+
+<p></p>
+<p></p>
+
+@*Finalizing an event*@
+@using (Html.BeginForm("FinalizeEvent", "User"))
+{
+
+    if (!finalized && GlobalNamespace.Global.userIsAdmin)
+    {
+        <div align="left"> <input type="submit" value="Finalize Event" /> </div>
+    }
+    if (finalized)
+    {
+        <div align="left"> Event has been finalized. Shift changes may no longer occur.</div>
+    }
+}
+
+@*Deleting an event*@
+@using (Html.BeginForm("DeleteEventConfirmation", "Home"))
+{
+    MVCFullCalendarDemo.Models.Event.staticID = eventID;
+
+    if (GlobalNamespace.Global.userIsAdmin)
+    {
+        <div align="right"> <input type="submit" value="Delete Event" /> </div>
+    }
+}
+
+@*This makes some vertical whitespace before the table*@
+<p></p>
+<p></p>
+
+@*Making changes to shifts*@
+
+    <table style="width:100%">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Hour of Shift Start</th>
+            <th>Sign-up</th>
+        </tr>
+        @{
+
+            System.Globalization.CultureInfo us = new System.Globalization.CultureInfo("en-US");
+            DateTime startTime = Convert.ToDateTime(ViewData["StartTime"]);
+            int startHour = startTime.Hour;
+
+            DateTime endTime = Convert.ToDateTime(ViewData["EndTime"]);
+            int endHour = endTime.Hour;
+
+            int numVolunteers = Convert.ToInt32(ViewData["NumVolunteers"]);
+            //We assume every shift is two hours long
+            //We also assume that every shift requires numVolunteers
+            int numShifts = numVolunteers;
+
+            Dictionary<int, int> shiftMap = MVCFullCalendarDemo.Models.Event.getPossibleShifts(startHour, endHour, numVolunteers);
+
+            //Populate table with taken shifts
+            MVCFullCalendarDemo.Models.Event.EventTableDetails tableDetails = MVCFullCalendarDemo.Models.Event.getEventTableDetails(eventID);
+            if (tableDetails.shifts != null)
+            {
+                for (int i = 0; i < tableDetails.shifts.Count; i++)
+                {
+                    <tr>
+                        <td>@tableDetails.volunteers[i].firstName</td>
+                        <td>@tableDetails.volunteers[i].lastName</td>
+                        @{
+                            int shiftTime = Convert.ToInt32(tableDetails.shifts[i]["StartTime"]);
+
+                            shiftMap[shiftTime]--;
+                        }
+                        <td>@shiftTime</td>
+                        <td>Shift taken</td>
+                    </tr>
+                }
+            }
+
+            foreach (int shiftTime in shiftMap.Keys)
+            {
+                if (shiftMap[shiftTime] > 0)
+                {
+                    for (int i = 0; i < shiftMap[shiftTime]; i++)
+                    {
+                        <tr>
+                            <td>Empty</td>
+                            <td></td>
+                            <td>@shiftTime</td>
+                            @{ if (GlobalNamespace.Global.isLoggedIn && !finalized)
+                                {
+                                    using (Html.BeginForm("TakeShift", "User"))
+                                    {
+                                        MVCFullCalendarDemo.Models.Event.eventID = eventID;
+                                        MVCFullCalendarDemo.Models.Event.startTime = shiftTime;
+                                    <td> <input name="submit" type="submit" value="Take Shift at @shiftTime" /> </td>
+                                    }
+                                }
+                                else if (!finalized)
+                                {
+                                    <td>Login to take an empty shift</td>
+                                }
+                            }
+                        </tr>
+                    }
+                }
+            }
+        }
+    </table>
+

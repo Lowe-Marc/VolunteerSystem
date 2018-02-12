@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="jumbotron">
+    <h1>Volunteer Project</h1>
+    <p class="lead">Marcus Lowe - Derek Stoner</p>
+    @{  if (GlobalNamespace.Global.isLoggedIn)
+        {
+            <h3> Logged in as: @GlobalNamespace.Global.loggedInUser</h3>
+            <p><a href="User/Logout" class="btn btn-primary btn-lgout">Logout &raquo;</a></p>
+        }
+        else
+        {
+            <p><a href="Home/Login" class="btn btn-primary btn-lg">Login &raquo;</a></p>
+        }
+     }
+</div>
+
+<!--- Start calendar -->
+@*<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>
+<script src="http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>*@
+
+<script type="text/javascript">
+    $(function () {
+        $('#fullcalendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,basicWeek,basicDay'
+            },
+            defaultDate: new Date(),
+
+            eventClick: function (calEvent, jsEvent, view) {
+                console.log("calEvent: " + calEvent)
+                console.log("jsEvent: " + jsEvent)
+                console.log("view: " + view.name)
+                
+                redirect(calEvent.id);
+            },
+        });
+    });
+
+    @{
+         //var cn = new System.Data.SqlClient.SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringD"].ConnectionString);
+     }
+    function render(eventID, eventTitle, eventDate) {
+        console.log("Rendering eventID: " + eventID)
+        console.log("Rendering eventTitle: " + eventTitle)
+        console.log("Rendering eventDate: " + eventDate)
+        $(function () {
+
+            var event = {
+                id: eventID,
+                title: eventTitle,
+                start: new Date(eventDate),
+            };
+
+            $('#fullcalendar').fullCalendar('renderEvent', event, true);
+
+        });
+    }
+
+    function redirect(id)
+    {
+        window.location.href = "/Home/Event/" + id;
+    }
+
+    var ids = @Html.Raw(Json.Encode(ViewData["IDs"]));
+    var arrSize = @Html.Raw(Json.Encode(ViewData["ArrSize"]));
+    var titles = @Html.Raw(Json.Encode(ViewData["Titles"]));
+    var dates = @Html.Raw(Json.Encode(ViewData["Dates"]));
+    console.log("arrSize: " + arrSize)
+    console.log("ids: " + ids)
+    console.log("titles: " + titles)
+    console.log("dates: " + dates)
+    for (i = 0; i < arrSize; i++)
+    {
+        render(ids[i], titles[i], dates[i]);
+    }
+
+</script>
+
+<div id="fullcalendar"></div>

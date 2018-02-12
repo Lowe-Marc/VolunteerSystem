@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "DeleteUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Are you sure you wish to delete the user?</h2>
+
+<table style="width:25%">
+    @using (Html.BeginForm("DeleteUser", "User"))
+    {
+        <td> <input type="submit" value="Yes" /> </td>
+    }
+
+    @using (Html.BeginForm("ManageUser", "Home"))
+    {
+        <td> <input type="submit" value="Cancel" /> </td>
+    }
+</table>

@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "ManageUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Manage User</h2>
+
+@using Creating_a_custom_user_login_form.Models
+@using GlobalNamespace
+
+@{ 
+    List<User> allUsers = (List<User>)ViewData["AllUsers"];
+    <table style="width:100%">
+        <tr>
+            <th>User ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            @{
+                if (Global.userIsManager || Global.userIsAdmin)
+                {
+                    <th>Promote to Manager</th>
+                }
+                if (Global.userIsAdmin)
+                {
+                    <th>Promote to Administrator</th>
+                    <th>Delete</th>
+                }
+            }
+        </tr>
+
+        @{
+            foreach (User user in allUsers)
+            {
+                Creating_a_custom_user_login_form.Models.User.staticID = user.id;
+                if (!user.UserName.Equals(Global.loggedInUser))
+                {
+                <tr>
+                    <td>@user.id</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>
+                        <a href="/Home/UserPage/@user.id">
+                            <div>
+                                @user.UserName
+                            </div>
+                        </a>
+                    </td>
+                    @{
+                        if (Global.userIsManager || Global.userIsAdmin)
+                        {
+                            using (Html.BeginForm("PromoteUserToManager", "User"))
+                            {
+                                if (user.isManager || user.isAdmin)
+                                {
+                                    <td> <input name="submit" type="submit" value="Promote User @user.id to Manager" disabled/> </td>
+                                }
+                                else
+                                {
+                                    <td> <input name="submit" type="submit" value="Promote User @user.id to Manager"/> </td>
+                                }
+                            }
+                        }
+                        if (Global.userIsAdmin)
+                        {
+                            using (Html.BeginForm("PromoteUserToAdmin", "User"))
+                            {
+                                if (user.isAdmin)
+                                {
+                                    <td> <input name="submit" type="submit" value="Promote User @user.id to Administrator" disabled/> </td>
+                                }
+                                else
+                                {
+                                    <td> <input name="submit" type="submit" value="Promote User @user.id to Administrator"/> </td>
+                                }
+                            }
+                            using (Html.BeginForm("DeleteUser", "Home"))
+                            {
+                                <td> <input name="submit" type="submit" value="Delete User @user.id"/> </td>
+                            }
+
+                        }
+                     }
+                </tr>
+                }
+            }
+        }
+    </table>
+}
